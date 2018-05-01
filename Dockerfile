@@ -9,17 +9,17 @@ RUN apt update \
 RUN git clone git://github.com/sstephenson/rbenv.git .rbenv \
 && echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile \
 && echo 'eval "$(rbenv init -)"' >> ~/.bash_profile \
-&& git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+&& git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build \
 
-RUN echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bash_profile \
-&& source ~/.bash_profile
+&& echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bash_profile \
+&& source ~/.bash_profile \
 
 #install ruby
-RUN rbenv install -v 2.3.1 \
+&& rbenv install -v 2.3.1 \
 && rbenv global 2.3.1 \
 && echo "gem: --no-document" > ~/.gemrc \
-&& gem install bundler
+&& gem install bundler \
 
 #install rails itself
-RUN gem install rails \
+&& gem install rails \
 && rbenv rehash
